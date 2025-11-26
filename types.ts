@@ -23,7 +23,7 @@ export interface ArchitectureItem {
   title: string;
   role: string;
   techStack: string;
-  status?: 'frozen' | 'training'; 
+  status?: 'frozen' | 'training';
 }
 
 export interface LayerSection {
@@ -48,4 +48,35 @@ export interface ProductItem {
 export interface Category {
   title: string;
   items: ProductItem[];
+}
+
+export interface ModelPerformance {
+  metric: string;
+  value: string;
+  improvement?: string;
+}
+
+export interface ModelData {
+  id: string;
+  name: string;
+  fullName?: string;
+  organization: string;
+  repoUrl: string;
+  paperUrl?: string;
+  features: string[];
+  performance: ModelPerformance[];
+  tags: {
+    hasVLM: boolean;
+    isSOTA: boolean;
+    isOpenSource: boolean;
+  };
+  highlight?: string; // Additional short note
+}
+
+export interface ComparisonRow {
+  name: string;
+  innovation: string;
+  hasVLM: boolean;
+  sotaContext: string;
+  openSource: boolean;
 }

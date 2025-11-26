@@ -22,6 +22,7 @@ import {
   ChevronRight,
   Info
 } from 'lucide-react';
+import OpenSourceView from './OpenSource';
 
 // --- Types ---
 
@@ -581,7 +582,20 @@ const IndustryView: React.FC = () => {
 // --- Main Component ---
 
 const AutonomousDrivingInsights: React.FC<{ className?: string }> = ({ className = "" }) => {
-  const [activeTab, setActiveTab] = useState<'arch' | 'industry'>('arch');
+  const [activeTab, setActiveTab] = useState<'arch' | 'industry' | 'openSource'>('arch');
+
+  const renderTabs = () => {
+    switch (activeTab) {
+      case 'arch':
+        return <ArchitectureView />;
+      case 'industry':
+        return <IndustryView />;
+      case 'openSource':
+        return <OpenSourceView />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className={`min-h-screen bg-[#0b0c15] text-slate-200 font-sans selection:bg-indigo-500/30 selection:text-indigo-200 ${className}`}>
@@ -614,6 +628,12 @@ const AutonomousDrivingInsights: React.FC<{ className?: string }> = ({ className
               >
                 落地 (Industry)
               </button>
+              <button 
+                onClick={() => setActiveTab('openSource')}
+                className={`px-5 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${activeTab === 'openSource' ? 'bg-[#1e293b] text-white shadow-sm border border-slate-700' : 'text-slate-500 hover:text-slate-300'}`}
+              >
+                开源 (Open Source)
+              </button>
             </div>
           </div>
         </div>
@@ -636,12 +656,18 @@ const AutonomousDrivingInsights: React.FC<{ className?: string }> = ({ className
               <Car size={16} />
               落地
             </button>
+              <button 
+                onClick={() => setActiveTab('openSource')}
+                className={`px-5 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${activeTab === 'openSource' ? 'bg-[#1e293b] text-white shadow-sm border border-slate-700' : 'text-slate-500 hover:text-slate-300'}`}
+              >
+                开源 (Open Source)
+              </button>
         </div>
       </div>
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        {activeTab === 'arch' ? <ArchitectureView /> : <IndustryView />}
+        {renderTabs()}
       </main>
 
       {/* Footer */}
